@@ -34,6 +34,25 @@ function getDevices(reachability: string) {
 
 }
 
+export function getDeviceDetails(device: primeInterfaces.reachabilityEntityId) {
+    return new Promise((resolve, reject) => {
+        httpClient.get(device["@url"] + ".json", {
+            httpsAgent: agent,
+            auth: {
+                username: uname,
+                password: pass
+            }
+        }).then((res) => {
+            var device: primeInterfaces.Entity = res.data.queryResponse.entity;
+            //console.log(device);
+            resolve(device);
+        }).catch((err) => {
+            console.log(err);
+            reject(err);
+        });
+    });
+}
+
 
 export function getPrimeResponse() {
 

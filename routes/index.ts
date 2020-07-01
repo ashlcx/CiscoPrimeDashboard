@@ -14,6 +14,27 @@ router.get('/', (req: express.Request, res: express.Response) => {
 });
 
 function displayreachable(req: express.Request, res: express.Response, primeResponse: primeInterfaces.primeResponse) {
+    if (primeResponse.reachable["@count"]) {
+        primeResponse.reachable.entityId.forEach((value) => {
+            Prime.getDeviceDetails(value).then((res) => {
+                console.log(res);
+            })
+        })
+    } else {
+        console.log("NO REACHABLE DEVICES");  
+    }
+
+    if (primeResponse.unreachable["@count"]) {
+        primeResponse.unreachable.entityId.forEach((value) => {
+            Prime.getDeviceDetails(value).then((res) => {
+                console.log(res);
+            })
+        })
+    } else {
+        console.log("NO UNREACHABLE DEVICES");
+    }
+
+
     res.render('index', {
         title: 'Cisco Prime reachable',
         unreachable: "Unreachable",
