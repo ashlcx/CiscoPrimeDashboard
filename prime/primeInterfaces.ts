@@ -15,6 +15,7 @@ export interface reachabilityEntityId {
 export class primeResponse {
     reachable: primeReachabilityResponse;
     unreachable: primeReachabilityResponse;
+    unreachableDevices?: DevicesDTO[]
 }
 
 export interface QueryResponse {

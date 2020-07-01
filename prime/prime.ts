@@ -1,9 +1,15 @@
 import axios = require('axios');
 import https = require('https');
 import primeInterfaces = require('./primeInterfaces');
+import promiseForeach = require('promise-foreach');
 const URL = "https://prime.corp.ashlcx.com/webacs/api/v4/data/Devices.json"
 
 const httpClient = axios.default;
+
+
+
+//const uname = "root";
+//const pass = "Famas!123123"
 
 const uname = "API";
 const pass = "gop.2kCs"
@@ -24,10 +30,8 @@ function getDevices(reachability: string) {
             }
         }).then((res) => {
             var response: primeInterfaces.primeReachabilityResponse = res.data.queryResponse;
-            //console.log(response);
             resolve(response);
         }).catch((err) => {
-            console.log(err);
             reject(err);
         });
     });
@@ -47,7 +51,6 @@ export function getDeviceDetails(device: primeInterfaces.reachabilityEntityId) {
             //console.log(device);
             resolve(device);
         }).catch((err) => {
-            console.log(err);
             reject(err);
         });
     });
@@ -64,14 +67,33 @@ export function getPrimeResponse() {
             finalResponse.reachable = reachableResponse;
             getDevices("UNREACHABLE").then((unreachableResponse: primeInterfaces.primeReachabilityResponse) => {
                 finalResponse.unreachable = unreachableResponse;
-                resolve(finalResponse);
+                if (finalResponse.unreachable["@count"]) {
+                    finalResponse.unreachableDevices = new Array;
+                    //console.log(unreachableResponse.entityId);
+                    var promises = [];
+
+                    finalResponse.unreachable.entityId.forEach((id: primeInterfaces.reachabilityEntityId) => {
+                        promises.push(
+                            getDeviceDetails(id).then((res: primeInterfaces.Entity) => {
+                                finalResponse.unreachableDevices.push(res[0].devicesDTO)
+                        }));
+                    });
+
+                    Promise.all(promises).then(() => {
+                        resolve(finalResponse)
+                    });
+
+                } else {
+                    resolve(finalResponse)
+                }
             }).catch((err) => {
-                console.log(err);
+                //console.log(err);
                 reject(err);
             });;
         }).catch((err) => {
-            console.log(err);
+            //console.log(err);
             reject(err);
         });
     });
 }
+
