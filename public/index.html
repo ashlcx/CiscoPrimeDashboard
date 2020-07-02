@@ -1,28 +1,49 @@
 ﻿<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-au">
+<html lang="en-au">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Cisco Prime Monitoring Dashboard</title>
     <link rel="stylesheet" href="stylesheets\bootstrap.css">
-    <script src="javascripts/clientside.js"></script>
+    <link rel="stylesheet" href="stylesheets\main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script type="text/javascript" src="javascripts/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="javascripts/clientside.js"></script>
 </head>
 <body>
-    <!--TODO ADD A REFRESH TIME DROPDOWN-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="">Operational Cisco Prime Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <span class="navbar-text ml-auto">
-                Cisco Prime Status
+        <a class="navbar-brand">Cisco Prime Monitoring</a>
+        <div class="navbar-text ml-auto">
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fas fa-sync" aria-hidden="true"></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <button class="dropdown-item" type="button">5s</button>
+                    <button class="dropdown-item" type="button">10s</button>
+                    <button class="dropdown-item" type="button">30s</button>
+                    <button class="dropdown-item" type="button">1m</button>
+                    <button class="dropdown-item" type="button">5m</button>
+                    <button class="dropdown-item" type="button">15m</button>
+
+                </div>
+            </div>
+            Cisco Prime Status
+            <span id="status-button">
+                <a class="btn btn-danger btn-sm">
+                    <i class="far fa-times-circle"></i>
+                </a>
             </span>
         </div>
     </nav>
-    <div id="title"><h1>LOADING... Please Wait</h1></div>
-    <div id="reachable"></div>
-    <div id="unreachable"></div>
+    <div id="body-content">
+        <div id="error-message" class="alert alert-danger"></div>
+        <div id="reachable"></div>
+        <div id="unreachable"></div>
+        <div id="loader"></div>
+    </div>
+    
 </body>
 </html>
