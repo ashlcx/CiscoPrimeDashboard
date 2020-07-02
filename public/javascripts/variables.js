@@ -1,1 +1,3 @@
-export const title = "SONOC Cisco Prime Monitoring";
+const variables = {
+    title: "SONOC Cisco Prime Monitoring"
+}

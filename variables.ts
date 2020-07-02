@@ -1,4 +1,7 @@
-export const debug = false
-export const uname = "API";
-export const pass = "gop.2kCs"
+const variables = {
+    uname: "API",
+    pass: "gop.2kCs",
+    server: "prime.corp.ashlcx.com"
+}
 
+export { variables as default}

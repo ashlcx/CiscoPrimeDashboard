@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en-au">
 <head>
     <meta charset="utf-8" />
@@ -10,26 +9,27 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script type="text/javascript" src="javascripts/jquery-3.5.1.js"></script>
     <script async type="text/javascript" src="javascripts/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="javascripts/variables.js"></script>
     <script async type="text/javascript" src="javascripts/clientside.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand">
             <img src="images/logo.png" width="60" height="60" alt="">
-            NOC Cisco Prime Monitoring
+            <span id="company">Cisco Prime Monitoring Dashboard</span>
         </a>
         <div class="navbar-text ml-auto">
             <div class="btn-group">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="fas fa-sync" aria-hidden="true"></span>
+                    <span class="fas fa-sync" aria-hidden="true"></span><span class="just-a-space"> </span><span id="refresh-time">5s</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <button class="dropdown-item" type="button">5s</button>
-                    <button class="dropdown-item" type="button">10s</button>
-                    <button class="dropdown-item" type="button">30s</button>
-                    <button class="dropdown-item" type="button">1m</button>
-                    <button class="dropdown-item" type="button">5m</button>
-                    <button class="dropdown-item" type="button">15m</button>
+                    <button class="dropdown-item" type="button" onclick='refreshDuration = 5; startRefreshLoop(); document.getElementById("refresh-time").innerHTML = "5s"'>5s</button>
+                    <button class="dropdown-item" type="button" onclick='refreshDuration = 10; startRefreshLoop(); document.getElementById("refresh-time").innerHTML = "10s"'>10s</button>
+                    <button class="dropdown-item" type="button" onclick='refreshDuration = 30; startRefreshLoop(); document.getElementById("refresh-time").innerHTML = "30s"'>30s</button>
+                    <button class="dropdown-item" type="button" onclick='refreshDuration = 1 * 60; startRefreshLoop(); document.getElementById("refresh-time").innerHTML = "1m"'>1m</button>
+                    <button class="dropdown-item" type="button" onclick='refreshDuration = 5 * 60; startRefreshLoop(); document.getElementById("refresh-time").innerHTML = "5m"'>5m</button>
+                    <button class="dropdown-item" type="button" onclick='refreshDuration = 15 * 60; startRefreshLoop(); document.getElementById("refresh-time").innerHTML = "15m"'>15m</button>
                 </div>
             </div>
             Cisco Prime Status
@@ -87,7 +87,7 @@
     </div>
     <footer class="footer">
         <div class="container">
-            <span class="text-muted">Copyright © 2020 Ashley Hines. Some Rights Reserved - V1.0</span>
+            <span class="text-muted">Copyright © 2020 Ashley Hines. Some Rights Reserved - V1.0 - Time until refresh: </span><span class="text-muted" id="seconds-remaining">0</span>
         </div>
     </footer>
 </body>

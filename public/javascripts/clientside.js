@@ -1,5 +1,7 @@
 var apiURL = window.location.href + "api";
-var refreshDuration = 5000;
+var refreshDuration = 5;
+var secondsRemaining = 5;
+var timerInterval;
 
 //set the cisco prime is up status on the navbar
 const statusDown = "<a class=\"btn btn-danger btn-sm\"><i class=\"far fa-times-circle\"></i></a >"
@@ -34,7 +36,6 @@ function updateValues() {
                 } else {
                     document.getElementById("unreachableList").innerHTML += "<div class=\"alert alert-danger device\">" + device.deviceName + "</div>";
                 }
-                
             });
             //Set cardbox numbers
             document.getElementById("totalNumber").innerHTML = totalDevices;
@@ -53,6 +54,11 @@ function updateValues() {
             // if no unreachables clear the unreachable list and set progress up to 100%
             document.getElementById("unreachableList").innerHTML = "";
             document.getElementById("progress-up").style.width = "100%"
+            document.getElementById("progress-maint").style.width = "0%"
+            document.getElementById("progress-down").style.width = "0%"
+            $('progress-up').attr("aria-valuenow", 100)
+            $('progress-down').attr("aria-valuenow", 0)
+            $('progress-maint').attr("aria-valuenow", 0)
         }
     }).catch((err) => {
         document.getElementById("error-message").style.display = "block";
@@ -60,7 +66,6 @@ function updateValues() {
         if (err === "ERROR OCCURED") {
             document.getElementById("error-message").innerHTML = "Could not connect to cisco prime";
         } else {
-            console.log("Unexpected Error occured");
             document.getElementById("error-message").innerHTML = err;
         }
         document.getElementById("status-button").innerHTML = statusDown;
@@ -77,7 +82,7 @@ function sortDownDevices(property) {
         property = property.substr(1);
     }
 
-    return function(a, b){
+    return function (a, b) {
         if (sortOrder == -1) {
             return b[property].localeCompare(a[property]);
         } else {
@@ -88,10 +93,30 @@ function sortDownDevices(property) {
 
 //starts and clears the refresh loop for refresh time change
 function startRefreshLoop() {
-    clearInterval();
-    setInterval(updateValues, refreshDuration)
+    secondsRemaining = 0;
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        updateTimerValues();
+        secondsRemaining--;
+        if (secondsRemaining <= 0) {
+            updateValues();
+            secondsRemaining = refreshDuration
+        }
+    }, 1000)
+}
+
+function setVariables() {
+    if (variables.title) {
+        document.getElementById("company").innerHTML = variables.title;
+        document.title = variables.title
+    }
+}
+
+function updateTimerValues() {
+    document.getElementById("seconds-remaining").innerHTML = secondsRemaining + " s";
 }
 
 // SCRIPT STARTS HERE
+setVariables();
 startRefreshLoop();
 updateValues();

@@ -1,14 +1,12 @@
 import axios = require('axios');
 import https = require('https');
 import primeInterfaces = require('./primeInterfaces');
+import variables = require('../variables');
 
 const httpClient = axios.default;
+const vars = variables.default
 
-const URL = "https://prime.corp.ashlcx.com/webacs/api/v4/data/Devices.json"
-
-// Logon Creditionals
-const uname = "API";
-const pass = "gop.2kCs"
+const URL = "https://" + vars.server +"/webacs/api/v4/data/Devices.json"
 
 // Allows SSL Verifaction Errors request level
 const agent = new https.Agent({
@@ -20,8 +18,8 @@ function getDevices(reachability: string) {
         httpClient.get(URL + "?reachability=\"" + reachability + "\"", {
             httpsAgent: agent,
             auth: {
-                username: uname,
-                password: pass
+                username: vars.uname,
+                password: vars.pass
             }
         }).then((res) => {
             var response: primeInterfaces.primeReachabilityResponse = res.data.queryResponse;
@@ -38,8 +36,8 @@ export function getDeviceDetails(device: primeInterfaces.reachabilityEntityId) {
         httpClient.get(device["@url"] + ".json", {
             httpsAgent: agent,
             auth: {
-                username: uname,
-                password: pass
+                username: vars.uname,
+                password: vars.pass
             }
         }).then((res) => {
             var device: primeInterfaces.Entity = res.data.queryResponse.entity;
