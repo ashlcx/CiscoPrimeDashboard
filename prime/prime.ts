@@ -66,7 +66,7 @@ export function getPrimeResponse() {
                         promises.push(
                             getDeviceDetails(id).then((res: primeInterfaces.Entity) => {
                                 finalResponse.unreachableDevices.push(res[0].devicesDTO)
-                        }));
+                            }));
                     });
                     Promise.all(promises).then(() => {
                         resolve(finalResponse)

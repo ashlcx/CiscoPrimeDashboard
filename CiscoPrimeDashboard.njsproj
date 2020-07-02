@@ -33,7 +33,11 @@
   <ItemGroup>
     <None Include="app.ts" />
     <None Include="routes\index.ts" />
+    <Content Include="public\images\logo.png" />
     <Content Include="public\index.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\javascripts\variables.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="tsconfig.json" />
