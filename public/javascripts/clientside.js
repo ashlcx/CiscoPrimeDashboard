@@ -1,22 +1,37 @@
 var apiURL = window.location.href + "api";
 var refreshDuration = 5000;
+var ciscoPrimeUp = false;
+var domContainsData = false
 
 function updateValues() {
     fetch(apiURL).then(response => response.text()).then((res) => {
-        //console.log(res);
+        // TODO LOADING SCREEN
         var primeResponse = JSON.parse(res);
-        //console.log(primeResponse);
-        document.getElementById("title").innerHTML = "<h2>Cisco Prime Monitoring Dashboard</h2>";
+        if (primeResponse.Error) {
+            throw "ERROR OCCURED"
+        } else {
+            ciscoPrimeUp = true
+            domContainsData = true
+            // TODO toggle status icon 
+        }
+        document.getElementById("title").innerHTML = "";
         document.getElementById("reachable").innerHTML = "Reachable devices = " + primeResponse.reachable['@count']; 
-        document.getElementById("unreachable").innerHTML = "unreachable devices = " + primeResponse.unreachable['@count'] + "<br>Unreachable Devices:<ul>";
         if (primeResponse.unreachableDevices) {
+            document.getElementById("unreachable").innerHTML = "unreachable devices = " + primeResponse.unreachable['@count'] + "<br>Unreachable Devices:<ul>";
             primeResponse.unreachableDevices.forEach((device) => {
                 document.getElementById("unreachable").innerHTML += "<li>" + device.deviceName + "</li>";
-                console.log(device)
             });
             
         }
         document.getElementById("unreachable").innerHTML += "</ul>";
+    }).catch((err) => {
+        if (err === "ERROR OCCURED") {
+            console.log("Could not connect to Cisco Prime");
+            document.getElementById("title").innerHTML = "Could not connect to cisco prime";
+        } else {
+            console.log("Unexpected Error occured");
+            document.getElementById("title").innerHTML = err;
+        }        
     })
 }
 

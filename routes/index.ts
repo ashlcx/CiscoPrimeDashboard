@@ -11,7 +11,11 @@ router.get('/api', (req: express.Request, res: express.Response) => {
     Prime.getPrimeResponse().then((response: primeInterfaces.primeResponse) => {
         res.send(response);
     }).catch((err) => {
-        res.send(err)
+        console.log("ERROR CONNECTING TO CISCO PRIME");
+        res.send({
+            Error: "Could not connect to cisco prime"
+        });
+
     })
 });
 
