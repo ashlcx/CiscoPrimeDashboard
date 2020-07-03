@@ -37,7 +37,7 @@
     <Content Include="public\index.html">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="public\javascripts\variables.js">
+    <Content Include="public\javascripts\clientVariables.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="tsconfig.json" />

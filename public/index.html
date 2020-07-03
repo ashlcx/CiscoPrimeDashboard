@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script type="text/javascript" src="javascripts/jquery-3.5.1.js"></script>
     <script async type="text/javascript" src="javascripts/bootstrap.bundle.js"></script>
-    <script type="text/javascript" src="javascripts/variables.js"></script>
+    <script type="text/javascript" src="javascripts/clientVariables.js"></script>
     <script async type="text/javascript" src="javascripts/clientside.js"></script>
 </head>
 <body>
@@ -48,27 +48,27 @@
             <div id="unreachable"></div>
             <div class="card-group text-center justify-content-center">
                 <div class="card text-white bg-primary mb-3" style="max-width: 25%;">
-                    <div class="card-header">TOTAL</div>
+                    <div class="card-header"><h2>TOTAL</h2></div>
                     <div class="card-body">
-                        <h5 id="totalNumber" class="card-title">0</h5>
+                        <h1 id="totalNumber" class="card-title">0</h1>
                     </div>
                 </div>
                 <div class="card text-white bg-success mb-3" style="max-width: 25%;">
-                    <div class="card-header">UP</div>
+                    <div class="card-header"><h2>UP</h2></div>
                     <div class="card-body">
-                        <h5 id="upNumber" class="card-title">0</h5>
+                        <h1 id="upNumber" class="card-title">0</h1>
                     </div>
                 </div>
                 <div class="card text-white bg-warning mb-3" style="max-width: 25%;">
-                    <div class="card-header">MAINTENANCE</div>
+                    <div class="card-header"><h2>MAINTENANCE</h2></div>
                     <div class="card-body">
-                        <h5 id="maintNumber" class="card-title">0</h5>
+                        <h1 id="maintNumber" class="card-title">0</h1>
                     </div>
                 </div>
                 <div class="card text-white bg-danger mb-3" style="max-width: 25%;">
-                    <div class="card-header">DOWN</div>
+                    <div class="card-header"><h2>DOWN</h2></div>
                     <div class="card-body">
-                        <h5 id="downNumber" class="card-title">0</h5>
+                        <h1 id="downNumber" class="card-title">0</h1>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,12 @@
     </div>
     <footer class="footer">
         <div class="container">
-            <span class="text-muted">Copyright © 2020 Ashley Hines. Some Rights Reserved - V1.0 - Time until refresh: </span><span class="text-muted" id="seconds-remaining">0</span>
+            <span class="text-muted">
+                Copyright © 2020 Ashley Hines. Some Rights Reserved - V1.0 - Time until refresh:
+                <span id="seconds-remaining">0</span>
+                <span id="memory"></span>
+                <span id="memory-usage"></span>
+            </span>
         </div>
     </footer>
 </body>

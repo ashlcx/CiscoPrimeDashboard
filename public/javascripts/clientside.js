@@ -2,6 +2,7 @@ var apiURL = window.location.href + "api";
 var refreshDuration = 5;
 var secondsRemaining = 5;
 var timerInterval;
+var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
 
 //set the cisco prime is up status on the navbar
 const statusDown = "<a class=\"btn btn-danger btn-sm\"><i class=\"far fa-times-circle\"></i></a >"
@@ -106,6 +107,10 @@ function startRefreshLoop() {
 }
 
 function setVariables() {
+    if (isChrome) {
+        document.getElementById("memory").innerHTML = "Memory Usage: "
+    }
+
     if (variables.title) {
         document.getElementById("company").innerHTML = variables.title;
         document.title = variables.title
@@ -114,7 +119,20 @@ function setVariables() {
 
 function updateTimerValues() {
     document.getElementById("seconds-remaining").innerHTML = secondsRemaining + " s";
+    
+    if (isChrome) {
+        if (window.performance.memory.usedJSHeapSize < 1024) {
+            document.getElementById("memory-usage").innerHTML = parseInt(window.performance.memory.usedJSHeapSize) + "B";
+        } else if (window.performance.memory.usedJSHeapSize < (1024 * 1024)) {
+            document.getElementById("memory-usage").innerHTML = parseInt(window.performance.memory.usedJSHeapSize / 1024) + "KB";
+        } else if (window.performance.memory.usedJSHeapSize < (1024 * 1024 * 1024)) {
+            document.getElementById("memory-usage").innerHTML = parseInt(window.performance.memory.usedJSHeapSize / (1024 * 1024)) + "MB";
+        }
+        
+    }
 }
+
+
 
 // SCRIPT STARTS HERE
 setVariables();
