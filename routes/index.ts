@@ -5,7 +5,7 @@ import express = require('express');
 import Prime = require('../prime/prime');
 import primeInterfaces = require('../prime/primeInterfaces');
 const router = express.Router();
-const variables = require('../variables');
+import globalVariables = require('../varManager');
 
 router.get('/api', (req: express.Request, res: express.Response) => {
     Prime.getPrimeResponse().then((response: primeInterfaces.primeResponse) => {
@@ -17,6 +17,10 @@ router.get('/api', (req: express.Request, res: express.Response) => {
         });
 
     })
+});
+
+router.get('/var', (req: express.Request, res: express.Response) => {
+    res.send(globalVariables.default.clientSide);
 });
 
 export default router;

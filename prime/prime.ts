@@ -1,10 +1,10 @@
 import axios = require('axios');
 import https = require('https');
 import primeInterfaces = require('./primeInterfaces');
-import variables = require('../variables');
+import globalVariables = require('../varmanager');
 
 const httpClient = axios.default;
-const vars = variables.default
+const vars = globalVariables.default
 
 const URL = "https://" + vars.server +"/webacs/api/v4/data/Devices.json"
 
@@ -18,8 +18,8 @@ function getDevices(reachability: string) {
         httpClient.get(URL + "?reachability=\"" + reachability + "\"", {
             httpsAgent: agent,
             auth: {
-                username: vars.uname,
-                password: vars.pass
+                username: vars.username,
+                password: vars.password
             }
         }).then((res) => {
             var response: primeInterfaces.primeReachabilityResponse = res.data.queryResponse;
@@ -36,8 +36,8 @@ export function getDeviceDetails(device: primeInterfaces.reachabilityEntityId) {
         httpClient.get(device["@url"] + ".json", {
             httpsAgent: agent,
             auth: {
-                username: vars.uname,
-                password: vars.pass
+                username: vars.username,
+                password: vars.password
             }
         }).then((res) => {
             var device: primeInterfaces.Entity = res.data.queryResponse.entity;

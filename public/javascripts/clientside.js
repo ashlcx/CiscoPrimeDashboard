@@ -3,6 +3,7 @@ var refreshDuration = 5;
 var secondsRemaining = 5;
 var timerInterval;
 var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+var variables;
 
 //set the cisco prime is up status on the navbar
 const statusDown = "<a class=\"btn btn-danger btn-sm\"><i class=\"far fa-times-circle\"></i></a >"
@@ -28,14 +29,14 @@ function updateValues() {
 
         //check if any unreachable devices - if not only display the cardbox
         if (primeResponse.unreachableDevices) {
-            document.getElementById("unreachableList").innerHTML = "Unreachable Devices: ";
+            document.getElementById("unreachableList").innerHTML = "<h3>Unreachable Devices:</h3>";
             primeResponse.unreachableDevices.sort(sortDownDevices("deviceName"));
             primeResponse.unreachableDevices.forEach((device) => {
                 if (device.managementStatus === "INSERVICE_MAINTENANCE") {
-                    document.getElementById("unreachableList").innerHTML += "<div class=\"alert alert-warning device\">" + device.deviceName + "</div>";
+                    document.getElementById("unreachableList").innerHTML += "<div class=\"alert alert-warning device\">" + device.deviceName + " Down since: " + device.collectionTime + "</div>";
                     amountInMaint += 1;
                 } else {
-                    document.getElementById("unreachableList").innerHTML += "<div class=\"alert alert-danger device\">" + device.deviceName + "</div>";
+                    document.getElementById("unreachableList").innerHTML += "<div class=\"alert alert-danger device\">" + device.deviceName + " Down since: " + device.collectionTime + "</div>";
                 }
             });
             //Set cardbox numbers
@@ -115,6 +116,10 @@ function setVariables() {
         document.getElementById("company").innerHTML = variables.title;
         document.title = variables.title
     }
+
+    if( variables.logo ){
+        document.getElementById("logo").innerHTML = '<img src="data:image/png;base64, ' + variables.logo + '" alt="logo" width="60" height="60px"/>'; 
+    }
 }
 
 function updateTimerValues() {
@@ -132,9 +137,19 @@ function updateTimerValues() {
     }
 }
 
+function getClientsideVariables() {
+    fetch(window.location.href + "var").then(response => response.text()).then((res) => {
+        variables = JSON.parse(res);
+        setVariables();
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+
 
 
 // SCRIPT STARTS HERE
-setVariables();
+getClientsideVariables();
+//setVariables();
 startRefreshLoop();
 updateValues();

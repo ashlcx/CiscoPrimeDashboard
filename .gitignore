@@ -338,3 +338,11 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# Ignore fontawesome
+
+public/fontawesome-free-5.13.1-web/
+/cisco-prime-dashboard-linux
+/cisco-prime-dashboard-macos
+/cisco-prime-dashboard-win.exe
+/logo.png

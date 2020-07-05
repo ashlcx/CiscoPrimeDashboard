@@ -24,6 +24,7 @@
 
 .progress{
     margin: 5px;
+    height: 32px;
 }
 
 #loader {
