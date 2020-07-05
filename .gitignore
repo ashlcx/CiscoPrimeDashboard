@@ -341,8 +341,9 @@ healthchecksdb
 
 # Ignore fontawesome
 
-public/fontawesome-free-5.13.1-web/
+/public/fontawesome-free-5.13.1-web/
 /cisco-prime-dashboard-linux
 /cisco-prime-dashboard-macos
 /cisco-prime-dashboard-win.exe
+/config.json
 /logo.png
