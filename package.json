@@ -14,7 +14,10 @@
   "main": "app.js",
   "bin": "app.js",
   "pkg": {
-    "assets": [ "views/*.pug", "public/**/*" ]
+    "assets": [
+      "views/*.pug",
+      "public/**/*"
+    ]
   },
   "dependencies": {
     "axios": "^0.19.2",
